@@ -100,6 +100,8 @@ python gui_tk.py
 - **Mask Only**: Show only detection results on black background
 - **EAR Threshold**: Adjustable sensitivity slider for blink detection
 
+![GUI Interface](https://raw.githubusercontent.com/jana0601/Eye_tracking/main/GUI_interface.jpg)
+
 ### Web Application
 
 The system also includes a Flask-based web interface:
@@ -124,7 +126,8 @@ The system provides multiple interface options:
 - **Web Interface**: Browser-based interface accessible from any device
 - **Command Line**: Traditional CLI for automated processing
 
-See `web_interface3.jpg` for an example of the web interface in action.
+![Web Interface](https://raw.githubusercontent.com/jana0601/Eye_tracking/main/web_interface3.jpg)
+
 
 ## Controls
 
