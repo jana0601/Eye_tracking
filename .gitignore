@@ -1,0 +1,33 @@
+# Cursor IDE files
+.cursor/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Data files (optional - uncomment if you don't want to track data)
+# data/
+# *.csv
+
+# Screenshots (optional - uncomment if you don't want to track screenshots)
+# *.jpg
+# *.png
