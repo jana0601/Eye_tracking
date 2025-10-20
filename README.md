@@ -99,7 +99,7 @@ python gui_tk.py
 - **Show Video**: Toggle video feed visibility
 - **Mask Only**: Show only detection results on black background
 - **EAR Threshold**: Adjustable sensitivity slider for blink detection
-- 
+
 ![GUI Interface](https://raw.githubusercontent.com/jana0601/Eye_tracking/main/GUI_interface.jpg)
 
 ### Web Application
