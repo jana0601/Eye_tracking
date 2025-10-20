@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MediaPipe Eye Tracking - Web</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji'; margin: 0; background: #0b0b0e; color: #e6e6e6; }
+      header { padding: 16px 24px; border-bottom: 1px solid #2a2a2e; display: flex; align-items: center; justify-content: space-between; }
+      .title { font-weight: 700; letter-spacing: 0.3px; }
+      main { display: grid; grid-template-columns: 320px 1fr; gap: 16px; padding: 16px; }
+      .panel { background: #141419; border: 1px solid #2a2a2e; border-radius: 12px; padding: 16px; }
+      .controls label { display: block; font-size: 14px; margin-top: 12px; color: #bdbdc2; }
+      .controls input[type=text], .controls input[type=number], .controls select { width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid #34343a; background: #0e0e13; color: #e6e6e6; box-sizing: border-box; }
+      .controls .row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+      .toggle { display: flex; align-items: center; gap: 8px; margin-top: 12px; }
+      button { padding: 10px 14px; border-radius: 10px; border: 1px solid #34343a; background: #1c1c23; color: #e6e6e6; cursor: pointer; }
+      button.primary { background: #3b82f6; border-color: #3b82f6; color: white; }
+      button:disabled { opacity: 0.6; cursor: not-allowed; }
+      .stream { background: #000; border: 1px solid #2a2a2e; border-radius: 12px; padding: 8px; display: flex; align-items: center; justify-content: center; }
+      img { width: 100%; max-height: calc(100vh - 180px); object-fit: contain; border-radius: 8px; }
+      .status { color: #9aa1ac; font-size: 13px; margin-top: 6px; }
+      .shortcuts { font-size: 12px; color: #6c757d; margin-top: 8px; }
+    </style>
+    <script>
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          // Disconnect camera on Escape key
+          const stopForm = document.querySelector('form[action="/control"] input[name="action"][value="stop"]');
+          if (stopForm && !stopForm.closest('form').querySelector('button').disabled) {
+            stopForm.closest('form').submit();
+          }
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <header>
+      <div class="title">MediaPipe Eye Tracking - Web</div>
+      <div class="status">Status: {{ 'Running' if running else 'Stopped' }} • FPS: {{ fps }}</div>
+    </header>
+    <main>
+      <section class="panel controls">
+        <!-- Privacy toggle removed for standard rendering -->
+        <hr style="border: none; border-top: 1px solid #2a2a2e; margin: 16px 0;"/>
+        <form action="/control" method="post">
+          <input type="hidden" name="action" value="start" />
+          <label>Source</label>
+          <select name="source">
+            <option value="webcam">Webcam</option>
+            <option value="video">Video</option>
+          </select>
+          <label>Video Path</label>
+          <input type="text" name="path" placeholder="E.g. E:\\videos\\sample.mp4" />
+          <label>EAR Threshold</label>
+          <input type="number" name="ear" step="0.01" min="0.10" max="0.40" value="0.25" />
+          <div style="margin-top:12px; display:flex; gap:8px;">
+            <button class="primary" type="submit" {% if running %}disabled{% endif %}>Start Camera</button>
+            <form action="/control" method="post" style="display:inline;">
+              <input type="hidden" name="action" value="stop" />
+              <button type="submit" {% if not running %}disabled{% endif %} style="background:#dc3545; border-color:#dc3545;">Disconnect Camera</button>
+            </form>
+          </div>
+        </form>
+        
+        <hr style="border: none; border-top: 1px solid #2a2a2e; margin: 16px 0;"/>
+        <div style="text-align: center;">
+          <button onclick="window.close()" style="background:#6c757d; border-color:#6c757d;">Close Browser Tab</button>
+          <div class="shortcuts">Press ESC to disconnect camera</div>
+        </div>
+        
+      </section>
+      <section class="panel">
+        <div class="stream">
+          <img src="/video_feed" alt="Video Stream" />
+        </div>
+      </section>
+    </main>
+  </body>
+  </html>
+
+
